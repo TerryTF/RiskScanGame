@@ -1,0 +1,3480 @@
+{
+  "components": {
+    "schemas": {
+      "ActionCardOut": {
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "cost": {
+            "$ref": "#/components/schemas/ActionCostOut"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "free_in_round_zero": {
+            "title": "Free In Round Zero",
+            "type": "boolean"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "rounds": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rounds"
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "description",
+          "cost",
+          "free_in_round_zero",
+          "rounds",
+          "available"
+        ],
+        "title": "ActionCardOut",
+        "type": "object"
+      },
+      "ActionCostOut": {
+        "properties": {
+          "authority": {
+            "title": "Authority",
+            "type": "integer"
+          },
+          "knowledge": {
+            "title": "Knowledge",
+            "type": "integer"
+          },
+          "money": {
+            "title": "Money",
+            "type": "integer"
+          },
+          "wild": {
+            "title": "Wild",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "money",
+          "knowledge",
+          "authority",
+          "wild"
+        ],
+        "title": "ActionCostOut",
+        "type": "object"
+      },
+      "ActionOut": {
+        "properties": {
+          "contributions": {
+            "items": {
+              "$ref": "#/components/schemas/ContributionOut"
+            },
+            "title": "Contributions",
+            "type": "array"
+          },
+          "cost": {
+            "additionalProperties": true,
+            "title": "Cost",
+            "type": "object"
+          },
+          "element_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Element Id"
+          },
+          "free": {
+            "title": "Free",
+            "type": "boolean"
+          },
+          "hazard_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hazard Id"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "result": {
+            "additionalProperties": true,
+            "title": "Result",
+            "type": "object"
+          },
+          "round": {
+            "title": "Round",
+            "type": "integer"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ActionType"
+          }
+        },
+        "required": [
+          "id",
+          "round",
+          "type",
+          "element_id",
+          "hazard_id",
+          "free",
+          "cost",
+          "contributions",
+          "result"
+        ],
+        "title": "ActionOut",
+        "type": "object"
+      },
+      "ActionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "payments": {
+            "description": "Exact contributors and amounts. Must be empty in Round 0 (free actions).",
+            "items": {
+              "$ref": "#/components/schemas/PaymentInput"
+            },
+            "title": "Payments",
+            "type": "array"
+          }
+        },
+        "title": "ActionRequest",
+        "type": "object"
+      },
+      "ActionType": {
+        "enum": [
+          "hazard_prediction",
+          "risk_adaptation",
+          "local_investment",
+          "diversification",
+          "reduce_emissions"
+        ],
+        "title": "ActionType",
+        "type": "string"
+      },
+      "AdaptRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "element_id": {
+            "title": "Element Id",
+            "type": "integer"
+          },
+          "hazard_id": {
+            "title": "Hazard Id",
+            "type": "integer"
+          },
+          "payments": {
+            "description": "Exact contributors and amounts. Must be empty in Round 0 (free actions).",
+            "items": {
+              "$ref": "#/components/schemas/PaymentInput"
+            },
+            "title": "Payments",
+            "type": "array"
+          }
+        },
+        "required": [
+          "element_id",
+          "hazard_id"
+        ],
+        "title": "AdaptRequest",
+        "type": "object"
+      },
+      "AppliedChangeOut": {
+        "properties": {
+          "after": {
+            "title": "After",
+            "type": "integer"
+          },
+          "before": {
+            "title": "Before",
+            "type": "integer"
+          },
+          "element_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Element Id"
+          },
+          "hazard_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hazard Id"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/EffectKind"
+          }
+        },
+        "required": [
+          "kind",
+          "hazard_id",
+          "element_id",
+          "before",
+          "after"
+        ],
+        "title": "AppliedChangeOut",
+        "type": "object"
+      },
+      "CatalogueOut": {
+        "description": "Standard game content and rule limits, so clients do not hard-code them.",
+        "properties": {
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/ActionCardOut"
+            },
+            "title": "Actions",
+            "type": "array"
+          },
+          "element_groups": {
+            "items": {
+              "$ref": "#/components/schemas/ElementGroupOut"
+            },
+            "title": "Element Groups",
+            "type": "array"
+          },
+          "event_templates": {
+            "items": {
+              "$ref": "#/components/schemas/EventTemplateOut"
+            },
+            "title": "Event Templates",
+            "type": "array"
+          },
+          "hazards": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Hazards",
+            "type": "array"
+          },
+          "limits": {
+            "$ref": "#/components/schemas/LimitsOut"
+          },
+          "teams": {
+            "items": {
+              "$ref": "#/components/schemas/TeamCardOut"
+            },
+            "title": "Teams",
+            "type": "array"
+          }
+        },
+        "required": [
+          "element_groups",
+          "hazards",
+          "teams",
+          "actions",
+          "event_templates",
+          "limits"
+        ],
+        "title": "CatalogueOut",
+        "type": "object"
+      },
+      "ContributionOut": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/ResourceType"
+          },
+          "team_id": {
+            "title": "Team Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "team_id",
+          "resource",
+          "amount"
+        ],
+        "title": "ContributionOut",
+        "type": "object"
+      },
+      "CreateGameRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Destination Name",
+            "type": "string"
+          },
+          "geographic_scope": {
+            "default": "Region",
+            "description": "Free text describing the destination's scale, for example Region, City or Island.",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Geographic Scope",
+            "type": "string"
+          },
+          "total_rounds": {
+            "default": 4,
+            "description": "Number of regular rounds (Round 0 tutorial not included).",
+            "maximum": 6.0,
+            "minimum": 3.0,
+            "title": "Total Rounds",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "destination_name"
+        ],
+        "title": "CreateGameRequest",
+        "type": "object"
+      },
+      "DamageOut": {
+        "properties": {
+          "element_id": {
+            "title": "Element Id",
+            "type": "integer"
+          },
+          "status_after": {
+            "title": "Status After",
+            "type": "integer"
+          },
+          "status_before": {
+            "title": "Status Before",
+            "type": "integer"
+          },
+          "vulnerability": {
+            "title": "Vulnerability",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "element_id",
+          "vulnerability",
+          "status_before",
+          "status_after"
+        ],
+        "title": "DamageOut",
+        "type": "object"
+      },
+      "DiversifyRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "marker_changes": {
+            "description": "At most one change per team: move one marker, or split one large marker, onto the new element. A team that is not listed keeps its markers.",
+            "items": {
+              "$ref": "#/components/schemas/MarkerChangeInput"
+            },
+            "maxItems": 3,
+            "title": "Marker Changes",
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the new destination element.",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "payments": {
+            "description": "Exact contributors and amounts. Must be empty in Round 0 (free actions).",
+            "items": {
+              "$ref": "#/components/schemas/PaymentInput"
+            },
+            "title": "Payments",
+            "type": "array"
+          },
+          "status": {
+            "default": 7,
+            "description": "Starting status of the new element: 7 unless the moderator changes it.",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Status",
+            "type": "integer"
+          },
+          "vulnerabilities": {
+            "description": "The new element's vulnerability to every hazard in the game, one value per hazard.",
+            "items": {
+              "$ref": "#/components/schemas/HazardVulnerabilityInput"
+            },
+            "title": "Vulnerabilities",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "vulnerabilities"
+        ],
+        "title": "DiversifyRequest",
+        "type": "object"
+      },
+      "EffectKind": {
+        "enum": [
+          "hazard_probability",
+          "vulnerability",
+          "element_status"
+        ],
+        "title": "EffectKind",
+        "type": "string"
+      },
+      "EffectOut": {
+        "properties": {
+          "delta": {
+            "title": "Delta",
+            "type": "integer"
+          },
+          "element_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Element Id"
+          },
+          "hazard_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hazard Id"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/EffectKind"
+          }
+        },
+        "required": [
+          "kind",
+          "delta",
+          "hazard_id",
+          "element_id"
+        ],
+        "title": "EffectOut",
+        "type": "object"
+      },
+      "ElementGroupOut": {
+        "properties": {
+          "elements": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Elements",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "elements"
+        ],
+        "title": "ElementGroupOut",
+        "type": "object"
+      },
+      "ElementInput": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "ElementInput",
+        "type": "object"
+      },
+      "ElementOut": {
+        "properties": {
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "status",
+          "active"
+        ],
+        "title": "ElementOut",
+        "type": "object"
+      },
+      "EventEffectInput": {
+        "additionalProperties": false,
+        "properties": {
+          "delta": {
+            "maximum": 10.0,
+            "minimum": -10.0,
+            "title": "Delta",
+            "type": "integer"
+          },
+          "element_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "For element_status effects, null means every active element.",
+            "title": "Element Id"
+          },
+          "hazard_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hazard Id"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/EffectKind"
+          }
+        },
+        "required": [
+          "kind",
+          "delta"
+        ],
+        "title": "EventEffectInput",
+        "type": "object"
+      },
+      "EventInput": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "default": "",
+            "maxLength": 1000,
+            "title": "Description",
+            "type": "string"
+          },
+          "effects": {
+            "items": {
+              "$ref": "#/components/schemas/EventEffectInput"
+            },
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Effects",
+            "type": "array"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "round": {
+            "minimum": 1.0,
+            "title": "Round",
+            "type": "integer"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventType",
+            "default": "standard"
+          }
+        },
+        "required": [
+          "round",
+          "name",
+          "effects"
+        ],
+        "title": "EventInput",
+        "type": "object"
+      },
+      "EventOut": {
+        "properties": {
+          "applied_changes": {
+            "items": {
+              "$ref": "#/components/schemas/AppliedChangeOut"
+            },
+            "title": "Applied Changes",
+            "type": "array"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "effects": {
+            "items": {
+              "$ref": "#/components/schemas/EffectOut"
+            },
+            "title": "Effects",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "round": {
+            "title": "Round",
+            "type": "integer"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventStatus"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          }
+        },
+        "required": [
+          "id",
+          "round",
+          "type",
+          "name",
+          "description",
+          "effects",
+          "status",
+          "applied_changes"
+        ],
+        "title": "EventOut",
+        "type": "object"
+      },
+      "EventStatus": {
+        "enum": [
+          "pending",
+          "applied",
+          "avoided"
+        ],
+        "title": "EventStatus",
+        "type": "string"
+      },
+      "EventTemplateOut": {
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "effects": {
+            "items": {
+              "$ref": "#/components/schemas/TemplateEffectOut"
+            },
+            "title": "Effects",
+            "type": "array"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "suggested_round": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Round"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "description",
+          "type",
+          "suggested_round",
+          "effects"
+        ],
+        "title": "EventTemplateOut",
+        "type": "object"
+      },
+      "EventType": {
+        "enum": [
+          "standard",
+          "transition_pressure"
+        ],
+        "title": "EventType",
+        "type": "string"
+      },
+      "GameState": {
+        "description": "Full game state returned by every read and mutation so one board can render any phase.",
+        "properties": {
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/ActionOut"
+            },
+            "title": "Actions",
+            "type": "array"
+          },
+          "current_round": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Round"
+          },
+          "destination_name": {
+            "title": "Destination Name",
+            "type": "string"
+          },
+          "elements": {
+            "items": {
+              "$ref": "#/components/schemas/ElementOut"
+            },
+            "title": "Elements",
+            "type": "array"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EventOut"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "geographic_scope": {
+            "title": "Geographic Scope",
+            "type": "string"
+          },
+          "hazard_rolls": {
+            "items": {
+              "$ref": "#/components/schemas/HazardRollOut"
+            },
+            "title": "Hazard Rolls",
+            "type": "array"
+          },
+          "hazards": {
+            "items": {
+              "$ref": "#/components/schemas/HazardOut"
+            },
+            "title": "Hazards",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "ledger": {
+            "items": {
+              "$ref": "#/components/schemas/LedgerOut"
+            },
+            "title": "Ledger",
+            "type": "array"
+          },
+          "phase": {
+            "$ref": "#/components/schemas/Phase"
+          },
+          "reduce_emissions_progress": {
+            "title": "Reduce Emissions Progress",
+            "type": "integer"
+          },
+          "scores": {
+            "items": {
+              "$ref": "#/components/schemas/ScoreOut"
+            },
+            "title": "Scores",
+            "type": "array"
+          },
+          "teams": {
+            "items": {
+              "$ref": "#/components/schemas/TeamOut"
+            },
+            "title": "Teams",
+            "type": "array"
+          },
+          "total_rounds": {
+            "title": "Total Rounds",
+            "type": "integer"
+          },
+          "vulnerabilities": {
+            "items": {
+              "$ref": "#/components/schemas/VulnerabilityOut"
+            },
+            "title": "Vulnerabilities",
+            "type": "array"
+          },
+          "winners": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Winners",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "destination_name",
+          "geographic_scope",
+          "total_rounds",
+          "phase",
+          "current_round",
+          "elements",
+          "hazards",
+          "vulnerabilities",
+          "teams",
+          "hazard_rolls",
+          "actions",
+          "events",
+          "scores",
+          "ledger",
+          "reduce_emissions_progress",
+          "winners"
+        ],
+        "title": "GameState",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HazardInput": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "probability": {
+            "maximum": 6.0,
+            "minimum": 1.0,
+            "title": "Probability",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "probability"
+        ],
+        "title": "HazardInput",
+        "type": "object"
+      },
+      "HazardOut": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "probability": {
+            "title": "Probability",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "probability"
+        ],
+        "title": "HazardOut",
+        "type": "object"
+      },
+      "HazardRollOut": {
+        "properties": {
+          "applied": {
+            "description": "True when the hazard dealt damage. A triggered hazard can be skipped in Round 0.",
+            "title": "Applied",
+            "type": "boolean"
+          },
+          "damages": {
+            "items": {
+              "$ref": "#/components/schemas/DamageOut"
+            },
+            "title": "Damages",
+            "type": "array"
+          },
+          "die": {
+            "title": "Die",
+            "type": "integer"
+          },
+          "hazard_id": {
+            "title": "Hazard Id",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "probability_at_roll": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Probability At Roll"
+          },
+          "resolved": {
+            "title": "Resolved",
+            "type": "boolean"
+          },
+          "round": {
+            "title": "Round",
+            "type": "integer"
+          },
+          "source": {
+            "$ref": "#/components/schemas/RollSource"
+          },
+          "triggered": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Triggered"
+          }
+        },
+        "required": [
+          "id",
+          "round",
+          "hazard_id",
+          "die",
+          "source",
+          "resolved",
+          "probability_at_roll",
+          "triggered",
+          "applied",
+          "damages"
+        ],
+        "title": "HazardRollOut",
+        "type": "object"
+      },
+      "HazardVulnerabilityInput": {
+        "additionalProperties": false,
+        "properties": {
+          "hazard_id": {
+            "title": "Hazard Id",
+            "type": "integer"
+          },
+          "value": {
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Value",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "hazard_id",
+          "value"
+        ],
+        "title": "HazardVulnerabilityInput",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "version"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "InvestRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "element_id": {
+            "title": "Element Id",
+            "type": "integer"
+          },
+          "payments": {
+            "description": "Exact contributors and amounts. Must be empty in Round 0 (free actions).",
+            "items": {
+              "$ref": "#/components/schemas/PaymentInput"
+            },
+            "title": "Payments",
+            "type": "array"
+          }
+        },
+        "required": [
+          "element_id"
+        ],
+        "title": "InvestRequest",
+        "type": "object"
+      },
+      "LedgerKind": {
+        "enum": [
+          "allocation",
+          "spend",
+          "expiry"
+        ],
+        "title": "LedgerKind",
+        "type": "string"
+      },
+      "LedgerOut": {
+        "properties": {
+          "action_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action Id"
+          },
+          "delta": {
+            "title": "Delta",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/LedgerKind"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/ResourceType"
+          },
+          "round": {
+            "title": "Round",
+            "type": "integer"
+          },
+          "team_id": {
+            "title": "Team Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "team_id",
+          "round",
+          "resource",
+          "delta",
+          "kind",
+          "action_id"
+        ],
+        "title": "LedgerOut",
+        "type": "object"
+      },
+      "LimitsOut": {
+        "properties": {
+          "adaptation_reduction": {
+            "title": "Adaptation Reduction",
+            "type": "integer"
+          },
+          "default_regular_rounds": {
+            "title": "Default Regular Rounds",
+            "type": "integer"
+          },
+          "diversification_status": {
+            "title": "Diversification Status",
+            "type": "integer"
+          },
+          "elements_max": {
+            "title": "Elements Max",
+            "type": "integer"
+          },
+          "elements_min": {
+            "title": "Elements Min",
+            "type": "integer"
+          },
+          "events_per_round_max": {
+            "title": "Events Per Round Max",
+            "type": "integer"
+          },
+          "hazards_max": {
+            "title": "Hazards Max",
+            "type": "integer"
+          },
+          "hazards_min": {
+            "title": "Hazards Min",
+            "type": "integer"
+          },
+          "large_priorities_per_team": {
+            "title": "Large Priorities Per Team",
+            "type": "integer"
+          },
+          "local_investment_gain": {
+            "title": "Local Investment Gain",
+            "type": "integer"
+          },
+          "probability_max": {
+            "title": "Probability Max",
+            "type": "integer"
+          },
+          "probability_min": {
+            "title": "Probability Min",
+            "type": "integer"
+          },
+          "reduce_emissions_rounds": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Reduce Emissions Rounds",
+            "type": "array"
+          },
+          "reduce_emissions_target": {
+            "title": "Reduce Emissions Target",
+            "type": "integer"
+          },
+          "regular_rounds": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Regular Rounds",
+            "type": "array"
+          },
+          "round_zero_damage_limit": {
+            "title": "Round Zero Damage Limit",
+            "type": "integer"
+          },
+          "small_priorities_per_team": {
+            "title": "Small Priorities Per Team",
+            "type": "integer"
+          },
+          "starting_status": {
+            "title": "Starting Status",
+            "type": "integer"
+          },
+          "transition_pressure_round": {
+            "title": "Transition Pressure Round",
+            "type": "integer"
+          },
+          "vulnerability_max": {
+            "title": "Vulnerability Max",
+            "type": "integer"
+          },
+          "vulnerability_min": {
+            "title": "Vulnerability Min",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "regular_rounds",
+          "default_regular_rounds",
+          "elements_min",
+          "elements_max",
+          "hazards_min",
+          "hazards_max",
+          "probability_min",
+          "probability_max",
+          "vulnerability_min",
+          "vulnerability_max",
+          "starting_status",
+          "events_per_round_max",
+          "transition_pressure_round",
+          "reduce_emissions_rounds",
+          "reduce_emissions_target",
+          "round_zero_damage_limit",
+          "large_priorities_per_team",
+          "small_priorities_per_team",
+          "local_investment_gain",
+          "adaptation_reduction",
+          "diversification_status"
+        ],
+        "title": "LimitsOut",
+        "type": "object"
+      },
+      "LoginRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "password": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Password",
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "LoginRequest",
+        "type": "object"
+      },
+      "MarkerChange": {
+        "description": "What a team may do with one priority marker when Diversification adds a new element.",
+        "enum": [
+          "move",
+          "split"
+        ],
+        "title": "MarkerChange",
+        "type": "string"
+      },
+      "MarkerChangeInput": {
+        "additionalProperties": false,
+        "properties": {
+          "change": {
+            "$ref": "#/components/schemas/MarkerChange"
+          },
+          "element_id": {
+            "description": "The element that holds the team's marker now.",
+            "title": "Element Id",
+            "type": "integer"
+          },
+          "team": {
+            "$ref": "#/components/schemas/TeamRole"
+          }
+        },
+        "required": [
+          "team",
+          "change",
+          "element_id"
+        ],
+        "title": "MarkerChangeInput",
+        "type": "object"
+      },
+      "PaymentInput": {
+        "additionalProperties": false,
+        "properties": {
+          "authority": {
+            "default": 0,
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Authority",
+            "type": "integer"
+          },
+          "knowledge": {
+            "default": 0,
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Knowledge",
+            "type": "integer"
+          },
+          "money": {
+            "default": 0,
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Money",
+            "type": "integer"
+          },
+          "team": {
+            "$ref": "#/components/schemas/TeamRole"
+          }
+        },
+        "required": [
+          "team"
+        ],
+        "title": "PaymentInput",
+        "type": "object"
+      },
+      "Phase": {
+        "enum": [
+          "SETUP",
+          "PRIORITIES",
+          "ROUND0_PREDICTION",
+          "ROUND0_ADAPTATION",
+          "ROUND0_INVESTMENT",
+          "ROUND0_HAZARDS",
+          "RESOURCE_ALLOCATION",
+          "ACTION_PHASE",
+          "HAZARD_PHASE",
+          "EVENT_PHASE",
+          "SCORING",
+          "ROUND_COMPLETE",
+          "GAME_COMPLETE"
+        ],
+        "title": "Phase",
+        "type": "string"
+      },
+      "PredictRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "hazard_id": {
+            "title": "Hazard Id",
+            "type": "integer"
+          },
+          "payments": {
+            "description": "Exact contributors and amounts. Must be empty in Round 0 (free actions).",
+            "items": {
+              "$ref": "#/components/schemas/PaymentInput"
+            },
+            "title": "Payments",
+            "type": "array"
+          }
+        },
+        "required": [
+          "hazard_id"
+        ],
+        "title": "PredictRequest",
+        "type": "object"
+      },
+      "PriorityOut": {
+        "properties": {
+          "element_id": {
+            "title": "Element Id",
+            "type": "integer"
+          },
+          "size": {
+            "$ref": "#/components/schemas/PrioritySize"
+          }
+        },
+        "required": [
+          "element_id",
+          "size"
+        ],
+        "title": "PriorityOut",
+        "type": "object"
+      },
+      "PrioritySize": {
+        "enum": [
+          "large",
+          "small"
+        ],
+        "title": "PrioritySize",
+        "type": "string"
+      },
+      "ResourceType": {
+        "enum": [
+          "money",
+          "knowledge",
+          "authority"
+        ],
+        "title": "ResourceType",
+        "type": "string"
+      },
+      "ResourcesOut": {
+        "properties": {
+          "authority": {
+            "default": 0,
+            "title": "Authority",
+            "type": "integer"
+          },
+          "knowledge": {
+            "default": 0,
+            "title": "Knowledge",
+            "type": "integer"
+          },
+          "money": {
+            "default": 0,
+            "title": "Money",
+            "type": "integer"
+          }
+        },
+        "title": "ResourcesOut",
+        "type": "object"
+      },
+      "RollSource": {
+        "enum": [
+          "predicted",
+          "rolled"
+        ],
+        "title": "RollSource",
+        "type": "string"
+      },
+      "SampleGameOut": {
+        "description": "Snapshots of one sample game, in the order the screens appear.",
+        "properties": {
+          "states": {
+            "items": {
+              "$ref": "#/components/schemas/SampleStateOut"
+            },
+            "title": "States",
+            "type": "array"
+          }
+        },
+        "required": [
+          "states"
+        ],
+        "title": "SampleGameOut",
+        "type": "object"
+      },
+      "SampleStateOut": {
+        "properties": {
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "state": {
+            "$ref": "#/components/schemas/GameState"
+          }
+        },
+        "required": [
+          "key",
+          "state"
+        ],
+        "title": "SampleStateOut",
+        "type": "object"
+      },
+      "SaveTextsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "texts": {
+            "description": "Texts to change by key. A string replaces the wording; null restores the default.",
+            "maxProperties": 2000,
+            "patternProperties": {
+              "^[A-Za-z0-9_.\\-]+$": {
+                "anyOf": [
+                  {
+                    "maxLength": 2000,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "propertyNames": {
+              "maxLength": 160,
+              "minLength": 1
+            },
+            "title": "Texts",
+            "type": "object"
+          }
+        },
+        "required": [
+          "texts"
+        ],
+        "title": "SaveTextsRequest",
+        "type": "object"
+      },
+      "ScoreOut": {
+        "properties": {
+          "large_total": {
+            "title": "Large Total",
+            "type": "integer"
+          },
+          "round": {
+            "title": "Round",
+            "type": "integer"
+          },
+          "score": {
+            "title": "Score",
+            "type": "integer"
+          },
+          "small_total": {
+            "title": "Small Total",
+            "type": "integer"
+          },
+          "team_id": {
+            "title": "Team Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "round",
+          "team_id",
+          "large_total",
+          "small_total",
+          "score"
+        ],
+        "title": "ScoreOut",
+        "type": "object"
+      },
+      "SessionOut": {
+        "properties": {
+          "username": {
+            "description": "Who is logged in.",
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "username"
+        ],
+        "title": "SessionOut",
+        "type": "object"
+      },
+      "SetElementsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "elements": {
+            "items": {
+              "$ref": "#/components/schemas/ElementInput"
+            },
+            "maxItems": 12,
+            "minItems": 4,
+            "title": "Elements",
+            "type": "array"
+          }
+        },
+        "required": [
+          "elements"
+        ],
+        "title": "SetElementsRequest",
+        "type": "object"
+      },
+      "SetEventsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EventInput"
+            },
+            "maxItems": 30,
+            "title": "Events",
+            "type": "array"
+          }
+        },
+        "required": [
+          "events"
+        ],
+        "title": "SetEventsRequest",
+        "type": "object"
+      },
+      "SetHazardsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "hazards": {
+            "items": {
+              "$ref": "#/components/schemas/HazardInput"
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Hazards",
+            "type": "array"
+          }
+        },
+        "required": [
+          "hazards"
+        ],
+        "title": "SetHazardsRequest",
+        "type": "object"
+      },
+      "SetPrioritiesRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "teams": {
+            "items": {
+              "$ref": "#/components/schemas/TeamPrioritiesInput"
+            },
+            "title": "Teams",
+            "type": "array"
+          }
+        },
+        "required": [
+          "teams"
+        ],
+        "title": "SetPrioritiesRequest",
+        "type": "object"
+      },
+      "SetTeamsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "teams": {
+            "items": {
+              "$ref": "#/components/schemas/TeamInput"
+            },
+            "title": "Teams",
+            "type": "array"
+          }
+        },
+        "required": [
+          "teams"
+        ],
+        "title": "SetTeamsRequest",
+        "type": "object"
+      },
+      "SetVulnerabilitiesRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "vulnerabilities": {
+            "items": {
+              "$ref": "#/components/schemas/VulnerabilityInput"
+            },
+            "title": "Vulnerabilities",
+            "type": "array"
+          }
+        },
+        "required": [
+          "vulnerabilities"
+        ],
+        "title": "SetVulnerabilitiesRequest",
+        "type": "object"
+      },
+      "TeamCardOut": {
+        "properties": {
+          "allowance": {
+            "$ref": "#/components/schemas/ResourcesOut"
+          },
+          "interests": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Interests",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "role": {
+            "$ref": "#/components/schemas/TeamRole"
+          }
+        },
+        "required": [
+          "role",
+          "name",
+          "interests",
+          "allowance"
+        ],
+        "title": "TeamCardOut",
+        "type": "object"
+      },
+      "TeamInput": {
+        "additionalProperties": false,
+        "properties": {
+          "members": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30,
+            "title": "Members",
+            "type": "array"
+          },
+          "role": {
+            "$ref": "#/components/schemas/TeamRole"
+          }
+        },
+        "required": [
+          "role"
+        ],
+        "title": "TeamInput",
+        "type": "object"
+      },
+      "TeamOut": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "members": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Members",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "priorities": {
+            "items": {
+              "$ref": "#/components/schemas/PriorityOut"
+            },
+            "title": "Priorities",
+            "type": "array"
+          },
+          "resources": {
+            "$ref": "#/components/schemas/ResourcesOut"
+          },
+          "role": {
+            "$ref": "#/components/schemas/TeamRole"
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "name",
+          "members",
+          "priorities",
+          "resources"
+        ],
+        "title": "TeamOut",
+        "type": "object"
+      },
+      "TeamPrioritiesInput": {
+        "additionalProperties": false,
+        "properties": {
+          "large": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Large",
+            "type": "array"
+          },
+          "role": {
+            "$ref": "#/components/schemas/TeamRole"
+          },
+          "small": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Small",
+            "type": "array"
+          }
+        },
+        "required": [
+          "role",
+          "large",
+          "small"
+        ],
+        "title": "TeamPrioritiesInput",
+        "type": "object"
+      },
+      "TeamRole": {
+        "enum": [
+          "local_government",
+          "tourism_industry",
+          "civil_society"
+        ],
+        "title": "TeamRole",
+        "type": "string"
+      },
+      "TemplateEffectOut": {
+        "properties": {
+          "delta": {
+            "title": "Delta",
+            "type": "integer"
+          },
+          "element": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Element"
+          },
+          "hazard": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hazard"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/EffectKind"
+          }
+        },
+        "required": [
+          "kind",
+          "delta",
+          "hazard",
+          "element"
+        ],
+        "title": "TemplateEffectOut",
+        "type": "object"
+      },
+      "TextsOut": {
+        "properties": {
+          "texts": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Edited texts by key. Missing keys use the default wording.",
+            "title": "Texts",
+            "type": "object"
+          },
+          "undo_available": {
+            "description": "True when the last save can be undone. Only the version before the last save is kept.",
+            "title": "Undo Available",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "texts",
+          "undo_available"
+        ],
+        "title": "TextsOut",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VulnerabilityInput": {
+        "additionalProperties": false,
+        "properties": {
+          "element_id": {
+            "title": "Element Id",
+            "type": "integer"
+          },
+          "hazard_id": {
+            "title": "Hazard Id",
+            "type": "integer"
+          },
+          "value": {
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Value",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "element_id",
+          "hazard_id",
+          "value"
+        ],
+        "title": "VulnerabilityInput",
+        "type": "object"
+      },
+      "VulnerabilityOut": {
+        "properties": {
+          "element_id": {
+            "title": "Element Id",
+            "type": "integer"
+          },
+          "hazard_id": {
+            "title": "Hazard Id",
+            "type": "integer"
+          },
+          "value": {
+            "title": "Value",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "element_id",
+          "hazard_id",
+          "value"
+        ],
+        "title": "VulnerabilityOut",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyCookie": {
+        "description": "Set by POST /api/v1/auth/login.",
+        "in": "cookie",
+        "name": "riskscan_session",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "Deterministic, moderator-driven backend for the RiskScan climate-resilience game.",
+    "title": "RiskScan API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/auth/login": {
+      "post": {
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Log in; sets the session cookie that the other requests need",
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "logout_api_v1_auth_logout_post",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Log out; removes the session cookie",
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "/api/v1/auth/session": {
+      "get": {
+        "operationId": "session_api_v1_auth_session_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Who is logged in; 401 when nobody is",
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "/api/v1/catalogue": {
+      "get": {
+        "operationId": "get_catalogue_api_v1_catalogue_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogueOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Standard elements, hazards, role cards, action cards, event examples and rule limits",
+        "tags": [
+          "catalogue"
+        ]
+      }
+    },
+    "/api/v1/editor/sample-game": {
+      "get": {
+        "operationId": "get_sample_game_api_v1_editor_sample_game_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SampleGameOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Snapshots of a scripted sample game, used to preview every screen in editor mode",
+        "tags": [
+          "texts"
+        ]
+      }
+    },
+    "/api/v1/games": {
+      "post": {
+        "operationId": "create_game_api_v1_games_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGameRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Create a game (destination and rounds)",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}": {
+      "get": {
+        "operationId": "get_game_api_v1_games__game_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get the full game state",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/actions/adapt": {
+      "post": {
+        "operationId": "adapt_api_v1_games__game_id__actions_adapt_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdaptRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Risk Adaptation: reduce one vulnerability by 1 (minimum 0)",
+        "tags": [
+          "actions"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/actions/diversify": {
+      "post": {
+        "operationId": "diversify_api_v1_games__game_id__actions_diversify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiversifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Diversification: add a new element (status 7 by default); each team may move or split one marker onto it",
+        "tags": [
+          "actions"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/actions/invest": {
+      "post": {
+        "operationId": "invest_api_v1_games__game_id__actions_invest_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Local Investment: increase one element's status by 2",
+        "tags": [
+          "actions"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/actions/predict": {
+      "post": {
+        "operationId": "predict_api_v1_games__game_id__actions_predict_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PredictRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Hazard Prediction: store dice for the current and next round",
+        "tags": [
+          "actions"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/actions/reduce-emissions": {
+      "post": {
+        "operationId": "reduce_emissions_api_v1_games__game_id__actions_reduce_emissions_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ActionRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Reduce Emissions: once in each of Rounds 1 and 2",
+        "tags": [
+          "actions"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/elements": {
+      "put": {
+        "operationId": "set_elements_api_v1_games__game_id__elements_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetElementsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Set the destination elements (status starts at 10)",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/events": {
+      "put": {
+        "operationId": "set_events_api_v1_games__game_id__events_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetEventsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Configure round events (replaces all pending events)",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/finish": {
+      "post": {
+        "operationId": "finish_game_api_v1_games__game_id__finish_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Finish the game after a scored round; that round's scores are final",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/hazards": {
+      "put": {
+        "operationId": "set_hazards_api_v1_games__game_id__hazards_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetHazardsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Set hazards and their probability thresholds (1-6)",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/priorities": {
+      "put": {
+        "operationId": "set_priorities_api_v1_games__game_id__priorities_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetPrioritiesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Set each team's 2 large and 2 small priorities",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/0/skip": {
+      "post": {
+        "operationId": "skip_round_zero_api_v1_games__game_id__rounds_0_skip_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Skip the Round 0 tutorial and go straight to Round 1",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/0/start": {
+      "post": {
+        "operationId": "start_round_zero_api_v1_games__game_id__rounds_0_start_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Start the Round 0 guided tutorial",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/{round_number}/allocate-resources": {
+      "post": {
+        "operationId": "allocate_resources_api_v1_games__game_id__rounds__round_number__allocate_resources_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+            "in": "path",
+            "name": "round_number",
+            "required": true,
+            "schema": {
+              "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+              "minimum": 0,
+              "title": "Round Number",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Allocate fresh team resources for a regular round",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/{round_number}/apply-event": {
+      "post": {
+        "operationId": "apply_event_api_v1_games__game_id__rounds__round_number__apply_event_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+            "in": "path",
+            "name": "round_number",
+            "required": true,
+            "schema": {
+              "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+              "minimum": 0,
+              "title": "Round Number",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Apply the configured events of the round",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/{round_number}/close-actions": {
+      "post": {
+        "operationId": "close_actions_api_v1_games__game_id__rounds__round_number__close_actions_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+            "in": "path",
+            "name": "round_number",
+            "required": true,
+            "schema": {
+              "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+              "minimum": 0,
+              "title": "Round Number",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Close the action phase",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/{round_number}/complete": {
+      "post": {
+        "operationId": "complete_round_api_v1_games__game_id__rounds__round_number__complete_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+            "in": "path",
+            "name": "round_number",
+            "required": true,
+            "schema": {
+              "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+              "minimum": 0,
+              "title": "Round Number",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Complete the round, expire resources, open the next round",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/{round_number}/resolve-hazards": {
+      "post": {
+        "operationId": "resolve_hazards_api_v1_games__game_id__rounds__round_number__resolve_hazards_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+            "in": "path",
+            "name": "round_number",
+            "required": true,
+            "schema": {
+              "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+              "minimum": 0,
+              "title": "Round Number",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Resolve hazards (reusing predicted dice) and apply damage",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/rounds/{round_number}/score": {
+      "post": {
+        "operationId": "score_round_api_v1_games__game_id__rounds__round_number__score_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+            "in": "path",
+            "name": "round_number",
+            "required": true,
+            "schema": {
+              "description": "0 is the Round 0 tutorial; 1 and up are regular rounds.",
+              "minimum": 0,
+              "title": "Round Number",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Snapshot team scores for the round",
+        "tags": [
+          "rounds"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/setup/complete": {
+      "post": {
+        "operationId": "complete_setup_api_v1_games__game_id__setup_complete_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Validate setup and move to team priorities",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/teams": {
+      "put": {
+        "operationId": "set_teams_api_v1_games__game_id__teams_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetTeamsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Set team members",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/games/{game_id}/vulnerabilities": {
+      "put": {
+        "operationId": "set_vulnerabilities_api_v1_games__game_id__vulnerabilities_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "game_id",
+            "required": true,
+            "schema": {
+              "title": "Game Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetVulnerabilitiesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Set the complete element-hazard vulnerability matrix (0-3)",
+        "tags": [
+          "game setup"
+        ]
+      }
+    },
+    "/api/v1/texts": {
+      "get": {
+        "operationId": "get_texts_api_v1_texts_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TextsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Edited screen and card texts (keys not listed use the default wording)",
+        "tags": [
+          "texts"
+        ]
+      },
+      "put": {
+        "operationId": "save_texts_api_v1_texts_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveTextsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TextsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Save edited texts; null restores a text's default wording",
+        "tags": [
+          "texts"
+        ]
+      }
+    },
+    "/api/v1/texts/undo": {
+      "post": {
+        "operationId": "undo_last_save_api_v1_texts_undo_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TextsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "APIKeyCookie": []
+          }
+        ],
+        "summary": "Undo the last save once: put back the texts as they were before it",
+        "tags": [
+          "texts"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Liveness check",
+        "tags": [
+          "health"
+        ]
+      }
+    }
+  }
+}

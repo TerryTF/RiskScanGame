@@ -1,0 +1,870 @@
+/* Moderator setup: forms, catalogues, the vulnerability matrix and event cards. */
+input,
+select,
+textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+label {
+  font-weight: 600;
+}
+
+.setup-card {
+  padding: 22px 26px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: #fff;
+}
+
+.setup-card + *,
+.stepper + * {
+  margin-top: 14px;
+}
+
+.setup-card__head,
+.setup-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.setup-card__head {
+  margin-bottom: 14px;
+}
+
+.setup-card__foot {
+  margin-top: 16px;
+}
+
+.legend {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.stepper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.stepper__step {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stepper__step[aria-current='step'] {
+  border-color: var(--teal);
+  background: var(--teal);
+  color: #fff;
+}
+
+.stepper__step:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.stepper__number {
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(43, 122, 104, 0.15);
+  font-size: 12px;
+}
+
+.stepper__step[aria-current='step'] .stepper__number {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.step-actions__hint {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.counter {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--mint);
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.counter--ok {
+  color: var(--ok);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.inline-add {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.inline-add input {
+  min-width: 240px;
+}
+
+/* Start of a game */
+.start-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 22px;
+}
+
+@media (max-width: 900px) {
+  .start-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.start-form {
+  display: grid;
+  gap: 18px;
+}
+
+.start-form label {
+  display: block;
+}
+
+.start-form input,
+.start-form select {
+  width: 100%;
+}
+
+.start-form__row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 18px;
+  margin: 0 0 14px;
+}
+
+.summary dt {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.summary dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.share label {
+  flex: 1;
+  min-width: 240px;
+}
+
+.share input {
+  width: 100%;
+}
+
+.share .kicker {
+  margin-bottom: 4px;
+}
+
+.resume {
+  margin-top: 22px;
+}
+
+.recent {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.recent li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--mint-soft);
+}
+
+.recent__links {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Catalogue choices */
+.element-groups {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 18px 28px;
+}
+
+.element-column {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .element-groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+.element-group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.element-group legend {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 0;
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.count {
+  color: var(--muted);
+}
+
+.choices {
+  display: grid;
+  gap: 8px;
+}
+
+.choices--two-columns {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.choices--hazards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 760px) {
+  .choices--hazards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.choice-with-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.choice-with-action .choice {
+  flex: 1;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f5f7f6;
+}
+
+.choice--green.is-checked {
+  border-color: transparent;
+  background: var(--mint);
+  font-weight: 700;
+}
+
+.choice--red.is-checked {
+  border-color: #f4cdc3;
+  background: var(--hazard-bg);
+  font-weight: 700;
+}
+
+.choice.is-disabled {
+  opacity: 0.55;
+}
+
+.choice__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.choice__main input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.choice__box {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  place-items: center;
+  border: 1.5px solid #9bb5ae;
+  border-radius: 5px;
+  background: #fff;
+  color: #fff;
+}
+
+.choice--green.is-checked .choice__box {
+  border-color: var(--teal);
+  background: var(--teal);
+}
+
+.choice--red.is-checked .choice__box {
+  border-color: var(--hazard-red);
+  background: var(--hazard-red);
+}
+
+.choice__main:has(input:focus-visible) .choice__box {
+  outline: 3px solid rgba(43, 122, 104, 0.45);
+  outline-offset: 2px;
+}
+
+.choice__hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.probability-pill select {
+  padding: 4px 8px;
+  border: 1px solid #f4cdc3;
+  border-radius: 6px;
+  color: var(--hazard-text);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* Vulnerability matrix */
+.matrix-wrap {
+  overflow-x: auto;
+}
+
+.matrix {
+  min-width: 560px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+}
+
+.matrix th,
+.matrix td {
+  padding: 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.matrix__corner,
+.matrix__hazard {
+  padding: 14px 12px !important;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.matrix__corner {
+  min-width: 240px;
+  border-top-left-radius: 10px;
+  background: var(--teal);
+  text-align: left !important;
+  text-transform: uppercase;
+}
+
+.matrix__hazard {
+  min-width: 100px;
+  background: var(--hazard-red);
+}
+
+.matrix__hazard:last-child {
+  border-top-right-radius: 10px;
+}
+
+.matrix tbody th {
+  padding: 10px 12px;
+  background: var(--mint);
+  color: var(--ink);
+  font-size: 14px;
+  text-align: left;
+}
+
+.matrix tbody tr:nth-child(even) th {
+  background: #fff;
+}
+
+.matrix tbody tr:nth-child(odd) td {
+  background: var(--mint);
+}
+
+.matrix tbody tr:nth-child(even) td {
+  background: #fff;
+}
+
+.matrix td.is-target {
+  box-shadow: inset 0 0 0 3px var(--ink);
+}
+
+.matrix tbody tr td.is-target:not(.vuln) {
+  background: var(--highlight);
+}
+
+.matrix td.is-empty .matrix__input {
+  background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(217, 79, 53, 0.1) 6px 12px);
+}
+
+.matrix__input {
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.matrix__input::placeholder {
+  color: #b9c9c4;
+}
+
+.matrix-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.fill-tool {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+/* Event cards */
+.round-cards + .muted,
+.setup-card + .muted {
+  margin-top: 16px;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--teal);
+}
+
+.round-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 18px;
+}
+
+.round-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.round-card__band {
+  margin: 0;
+  padding: 11px;
+  background: var(--pink);
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.round-card__body {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.draft-card {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: var(--mint-soft);
+}
+
+.draft-card.is-disabled {
+  opacity: 0.55;
+}
+
+.draft-card__title {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.draft-card__effects {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.draft-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.draft-card__note {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.add-event select {
+  width: 100%;
+}
+
+.event-editor {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.event-editor label {
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.event-editor input,
+.event-editor select {
+  width: 100%;
+}
+
+.effect-row {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+}
+
+.effect-row legend {
+  padding: 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Team priorities */
+.priorities {
+  margin-top: 18px;
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.priorities__teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.priority-team {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: var(--mint-soft);
+}
+
+.priority-team legend {
+  padding: 0 6px;
+}
+
+.priority-team label {
+  display: grid;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.priority-team select {
+  width: 100%;
+}
+
+.priorities.is-drop-back {
+  outline: 2px dashed var(--teal);
+  outline-offset: -6px;
+}
+
+.priorities__hint {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.marker-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.marker-slot {
+  position: relative;
+  display: inline-flex;
+}
+
+.marker-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 118px;
+  padding: 6px 10px;
+  border: 1px dashed var(--team);
+  border-radius: 12px;
+  background: #fff;
+  text-align: left;
+  cursor: grab;
+}
+
+.marker-chip:hover {
+  box-shadow: 0 2px 8px rgb(31 58 54 / 12%);
+}
+
+.marker-chip:active {
+  cursor: grabbing;
+}
+
+.marker-chip:disabled {
+  box-shadow: none;
+  cursor: default;
+}
+
+.marker-chip.is-placed {
+  border-style: solid;
+  border-color: var(--border);
+  background: var(--mint);
+}
+
+.marker-chip.is-active {
+  border-style: solid;
+  border-color: var(--team);
+  box-shadow: 0 0 0 2px var(--team);
+}
+
+.marker-chip__text {
+  display: grid;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.marker-chip__text span {
+  max-width: 110px;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marker-slot__remove {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.marker-slot__remove:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Vulnerability colours in the setup matrix (see components.css for the scale); 0 keeps the row colour. */
+.matrix tbody tr td.vuln.vuln--1 {
+  background: var(--vuln-1);
+}
+
+.matrix tbody tr td.vuln.vuln--2 {
+  background: var(--vuln-2);
+}
+
+.matrix tbody tr td.vuln.vuln--3 {
+  background: var(--vuln-3);
+}
+
+.matrix td.vuln .matrix__input {
+  color: inherit;
+}
+
+/* Geographic scope: suggestions open below the field; any other scope can be typed. */
+.scope-field {
+  position: relative;
+}
+
+.scope-field__control {
+  position: relative;
+}
+
+.start-form .scope-field input {
+  padding-right: 40px;
+}
+
+.scope-field__toggle {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  width: 36px;
+  border: 0;
+  border-radius: 0 8px 8px 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.scope-field__popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(31, 58, 54, 0.14);
+  overflow: hidden;
+}
+
+.scope-field__list {
+  max-height: 240px;
+  margin: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.scope-field__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.scope-field__option.is-active {
+  background: var(--mint);
+}
+
+.scope-field__option[aria-selected='true'] {
+  color: var(--teal-dark);
+  font-weight: 800;
+}
+
+.scope-field__tag {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--mint-soft);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.scope-field__note {
+  padding: 8px 14px;
+  border-top: 1px solid var(--border-soft);
+  background: var(--mint-soft);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.scope-field__hint {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
